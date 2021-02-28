@@ -10,7 +10,7 @@ public class SalaryCalculatorService {
 //                employee.setSalary(employee.getSalary()*((100+percentage)/100));
 //                break;
 //            case COMMISSION:
-//
+//                employee.setSalary(employee.getSalary()*((100+percentage)/100));
 //                break;
 //            case HOURLY:
 //

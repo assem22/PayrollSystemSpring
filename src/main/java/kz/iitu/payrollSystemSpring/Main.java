@@ -29,9 +29,10 @@ public class Main {
                 "[5] exit");
         int choice = in.nextInt();
         double percentage;
+
         switch(choice){
             case 1:
-                System.out.println("Enter the percentage of salary that you want to add to base salary:");
+                System.out.println("Enter the percentage of salary for salaried-commission employees:");
                 percentage = in.nextDouble();
                 for (Employee employee: employeeDao.getEmployees()){
                     if (employee.getType() == EmployeeType.SALARIZEDCOMMISSION){
@@ -40,16 +41,17 @@ public class Main {
                 }
                 break;
             case 2:
-                System.out.println("Enter the coefficient of overtime pay for all hours worked in excess of 40 hours:");
-                double coef = in.nextDouble();
+                System.out.println("Enter the percentage of salary for hourly employees:");
+//                double coef = in.nextDouble();
+                percentage = in.nextDouble();
                 for (Employee employee: employeeDao.getEmployees()){
                     if (employee.getType() == EmployeeType.HOURLY){
-                        employeeDao.salaryChange(employee, coef);
+                        employeeDao.salaryChange(employee, percentage);
                     }
                 }
                 break;
             case 3:
-                System.out.println("Enter the percentage of their sales:");
+                System.out.println("Enter the percentage of salary for commission employees:");
                 percentage = in.nextDouble();
                 for (Employee employee: employeeDao.getEmployees()){
                     if (employee.getType() == EmployeeType.COMMISSION){
@@ -58,7 +60,7 @@ public class Main {
                 }
                 break;
             case 4:
-                System.out.println("Enter the percentage of salary that you want to add to salary of salaried employees:");
+                System.out.println("Enter the percentage of salary for salaried employees:");
                 percentage = in.nextDouble();
                 for (Employee employee: employeeDao.getEmployees()){
                     if (employee.getType() == EmployeeType.MONTHLY){
