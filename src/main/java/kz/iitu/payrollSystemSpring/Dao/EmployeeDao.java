@@ -36,6 +36,7 @@ public class EmployeeDao implements ApplicationEventPublisherAware {
     private List<Employee> employees = new ArrayList<>();
 
     public void salaryChange(Employee employee, double percentage) {
+        System.out.println("EmployeeDao.ApplicationEventPublisherAware");
         System.out.println("SALARY OF EMPLOYEE CHANGED");
         System.out.println("employee = " + employee.getName() + "; type: "+ employee.getType());
         employee = calculatorService.calculate(employee, percentage);
