@@ -1,6 +1,6 @@
 package kz.iitu.payrollSystemSpring.Event;
 
-import kz.iitu.payrollSystemSpring.Employee;
+import kz.iitu.payrollSystemSpring.entity.Employee;
 import org.springframework.context.ApplicationEvent;
 
 public class SalaryChangeEvent extends ApplicationEvent {

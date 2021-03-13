@@ -1,21 +1,27 @@
 package kz.iitu.payrollSystemSpring;
 
-import kz.iitu.payrollSystemSpring.Dao.EmployeeDao;
+import kz.iitu.payrollSystemSpring.Service.SalaryCalculatorService;
+import kz.iitu.payrollSystemSpring.config.SpringConfig;
+import kz.iitu.payrollSystemSpring.controller.EmployeeController;
+import kz.iitu.payrollSystemSpring.entity.Employee;
+import kz.iitu.payrollSystemSpring.entity.EmployeeType;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Scanner;
 
 public class Main {
     private static Scanner in = new Scanner(System.in);
-    private static EmployeeDao employeeDao;
+    private static EmployeeController controller;
+    private static SalaryCalculatorService calculatorService = new SalaryCalculatorService();
     private static AnnotationConfigApplicationContext context;
-    public static void main(String[] args){
-        context = new AnnotationConfigApplicationContext();
-        context.scan("kz.iitu.payrollSystemSpring");
-        context.refresh();
-        employeeDao = context.getBean("employeeDao", EmployeeDao.class);
 
-        System.out.println(employeeDao.getEmployees());
+    private static Employee employee = new Employee();
+
+    public static void main(String[] args){
+        context = new AnnotationConfigApplicationContext(SpringConfig.class);
+//        employeeDao = context.getBean("employeeDao", EmployeeDao.class);
+        controller = context.getBean("employeeController", EmployeeController.class);
+        System.out.println(controller.getEmployees());
         while(true){
             menu();
         }
@@ -34,9 +40,10 @@ public class Main {
             case 1:
                 System.out.println("Enter the percentage of salary for salaried-commission employees:");
                 percentage = in.nextDouble();
-                for (Employee employee: employeeDao.getEmployees()){
-                    if (employee.getType() == EmployeeType.SALARIZEDCOMMISSION){
-                        employeeDao.salaryChange(employee, percentage);
+                for (Employee employee: controller.getEmployees()){
+                    if (employee.getEmplType() == EmployeeType.SALARIED_COMMISSION){
+                        employee = calculatorService.calculate(employee, percentage);
+                        controller.updateEmployee(employee);
                     }
                 }
                 break;
@@ -44,27 +51,30 @@ public class Main {
                 System.out.println("Enter the percentage of salary for hourly employees:");
 //                double coef = in.nextDouble();
                 percentage = in.nextDouble();
-                for (Employee employee: employeeDao.getEmployees()){
-                    if (employee.getType() == EmployeeType.HOURLY){
-                        employeeDao.salaryChange(employee, percentage);
+                for (Employee employee: controller.getEmployees()){
+                    if (employee.getEmplType() == EmployeeType.HOURLY){
+                        employee = calculatorService.calculate(employee, percentage);
+                        controller.updateEmployee(employee);
                     }
                 }
                 break;
             case 3:
                 System.out.println("Enter the percentage of salary for commission employees:");
                 percentage = in.nextDouble();
-                for (Employee employee: employeeDao.getEmployees()){
-                    if (employee.getType() == EmployeeType.COMMISSION){
-                        employeeDao.salaryChange(employee, percentage);
+                for (Employee employee: controller.getEmployees()){
+                    if (employee.getEmplType() == EmployeeType.COMMISSION){
+                        employee = calculatorService.calculate(employee, percentage);
+                        controller.updateEmployee(employee);
                     }
                 }
                 break;
             case 4:
                 System.out.println("Enter the percentage of salary for salaried employees:");
                 percentage = in.nextDouble();
-                for (Employee employee: employeeDao.getEmployees()){
-                    if (employee.getType() == EmployeeType.MONTHLY){
-                        employeeDao.salaryChange(employee, percentage);
+                for (Employee employee: controller.getEmployees()){
+                    if (employee.getEmplType() == EmployeeType.MONTHLY){
+                        employee = calculatorService.calculate(employee, percentage);
+                        controller.updateEmployee(employee);
                     }
                 }
                 break;

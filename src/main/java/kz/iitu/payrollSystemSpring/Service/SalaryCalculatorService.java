@@ -1,22 +1,21 @@
 package kz.iitu.payrollSystemSpring.Service;
 
-import kz.iitu.payrollSystemSpring.Employee;
+import kz.iitu.payrollSystemSpring.entity.Employee;
 
 public class SalaryCalculatorService {
     public Employee calculate(Employee employee, double percentage){
-        employee.setSalary(employee.getSalary()*((100+percentage)/100));
-//        switch (employee.getType()){
-//            case SALARIZEDCOMMISSION:
-//                employee.setSalary(employee.getSalary()*((100+percentage)/100));
+        employee.setFixedSalary(employee.getFixedSalary()*((100+percentage)/100));
+//        switch (employee.getEmplType()){
+//            case SALARIED_COMMISSION:
+//                employee.setFixedSalary(employee.getFixedSalary()*((100+percentage)/100));
 //                break;
 //            case COMMISSION:
-//                employee.setSalary(employee.getSalary()*((100+percentage)/100));
-//                break;
+//                employee.setFixedSalary(employee.getFixedSalary()*((100+percentage)/100));                break;
 //            case HOURLY:
-//
+//                employee.setFixedSalary(employee.getFixedSalary()*((100+percentage)/100));
 //                break;
 //            case MONTHLY:
-//                employee.setSalary(employee.getSalary()*((100+percentage)/100));
+//                employee.setFixedSalary(employee.getFixedSalary()*((100+percentage)/100));
 //                break;
 //        }
         return employee;
